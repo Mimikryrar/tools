@@ -1,6 +1,6 @@
 import { GoogleGenAI, GenerateContentResponse } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || "" });
 
 export interface DesignStyle {
   id: string;
@@ -79,14 +79,17 @@ export async function chatWithDesigner(
   roomImage?: string
 ) {
   const chat = ai.chats.create({
-    model: 'gemini-3-flash-preview',
+    model: 'gemini-2.0-flash',
     config: {
-      systemInstruction: `You are Aura, an expert AI Interior Design Consultant. 
-      Your goal is to help users refine their room designs. 
-      You are professional, sophisticated, and have a keen eye for aesthetics.
-      When a user asks for refinements (e.g., "make the rug blue"), provide specific design advice.
-      If they ask for shoppable links, suggest high-quality items from well-known brands (e.g., West Elm, IKEA, Article, CB2) and describe why they fit the design.
-      Always maintain a helpful and inspiring tone.`,
+      systemInstruction: `You are Aura, an expert AI Interior Design Consultant with deep knowledge of color psychology, spatial design, and current furniture trends.
+
+When a user uploads a room photo, always follow this structure:
+🔍 ANALYSIS: Describe the current style, colors, and strengths in 2-3 sentences.
+✨ TOP 3 IMPROVEMENTS: List 3 specific, actionable improvements with reasoning (prioritized by impact vs. effort).
+🛒 PRODUCT PICKS: Suggest 2-3 real products with price range and where to buy (IKEA, West Elm, CB2, Article, Westwing).
+🎨 STYLE ALTERNATIVES: Briefly mention 2 alternative style directions that could work.
+
+Keep answers concise and inspiring. Ask about budget and style preferences if not provided. Always respond in the same language the user writes in.`,
     },
     history: history,
   });
@@ -101,6 +104,6 @@ export async function chatWithDesigner(
     });
   }
 
-  const response = await chat.sendMessage({ message: message });
+  const response = await chat.sendMessage({ message: contents });
   return response.text;
 }
