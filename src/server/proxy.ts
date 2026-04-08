@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors';
+import { join } from 'path';
 import { GoogleGenAI } from '@google/genai';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 const API_KEY = process.env.GEMINI_API_KEY || '';
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 const SYSTEM_INSTRUCTION = `You are χρέομαι (Chreomai), an ancient-wisdom-inspired AI Interior Design Consultant. Your name means 'to consult the oracle' in ancient Greek. You combine timeless design principles — proportion, harmony, reason — with modern interior design expertise.
 
@@ -16,20 +18,14 @@ When a user uploads a room photo, always follow this structure:
 
 Keep answers concise and inspiring. Ask about budget and style preferences if not provided. Always respond in the same language the user writes in.`;
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  process.env.CORS_ORIGIN,
-].filter(Boolean) as string[];
-
+// In development: allow localhost:3000. In production: same-origin (no CORS needed),
+// but also allow CORS_ORIGIN if set (e.g. custom domain).
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (e.g. curl, server-to-server)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error(`CORS: origin ${origin} not allowed`));
-    }
-  },
+  origin: process.env.CORS_ORIGIN
+    ? ['http://localhost:3000', process.env.CORS_ORIGIN]
+    : IS_PRODUCTION
+      ? true   // same-origin requests in production — allow all
+      : 'http://localhost:3000',
   methods: ['POST'],
 }));
 
@@ -110,6 +106,16 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
+// In production: serve the built React frontend and handle SPA routing.
+// API routes above take priority over static files.
+if (IS_PRODUCTION) {
+  const distPath = join(process.cwd(), 'dist');
+  app.use(express.static(distPath));
+  app.get('*', (_req, res) => {
+    res.sendFile(join(distPath, 'index.html'));
+  });
+}
+
 app.listen(PORT, () => {
-  console.log(`λόγος proxy server running on http://localhost:${PORT}`);
+  console.log(`λόγος ${IS_PRODUCTION ? 'production' : 'proxy'} server running on http://localhost:${PORT}`);
 });

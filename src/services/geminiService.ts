@@ -1,4 +1,6 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// In production (Docker/Cloud Run): VITE_API_URL='' → same-origin /api/... requests.
+// In local dev: VITE_API_URL is undefined → falls back to http://localhost:3001.
+const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:3001';
 
 export interface DesignStyle {
   id: string;

@@ -50,6 +50,40 @@ The Gemini API key is never exposed to the browser.
    npm run server  # Proxy on http://localhost:3001
    ```
 
+## Deploy to Cloud Run
+
+### Prerequisites
+- [Google Cloud CLI](https://cloud.google.com/sdk/docs/install) installed and authenticated
+- A Google Cloud project with Cloud Run and Container Registry enabled
+
+### Steps
+
+```bash
+gcloud auth login
+gcloud config set project YOUR_PROJECT_ID
+
+# Deploy directly from source (builds + pushes + deploys in one step):
+gcloud run deploy logos-interior \
+  --source . \
+  --region europe-west1 \
+  --allow-unauthenticated \
+  --set-env-vars GEMINI_API_KEY=your_key_here
+```
+
+### Architecture in Production
+
+In production (Docker/Cloud Run), a **single Express process** on port 8080 handles both:
+- **Static files** — the built React frontend (`dist/`)
+- **API routes** — `/api/generate-image` and `/api/chat` (proxied to Gemini)
+
+The `GEMINI_API_KEY` is a server-side environment variable set via Cloud Run — never exposed to the browser.
+
+### Using Cloud Build (CI/CD)
+
+```bash
+gcloud builds submit --substitutions=_GEMINI_API_KEY=your_key_here
+```
+
 ---
 
 *© 2026 λόγος. All rights reserved.*
