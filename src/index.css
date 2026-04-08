@@ -3,10 +3,14 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Cormorant Garamond", serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
   --color-paper: #f5f2ed;
   --color-ink: #1a1a1a;
-  --color-accent: #5a5a40; /* Olive */
+  --color-accent: #d4af7a;
+  --color-noir: #1a1a1a;
+  --color-marbre: #f5f2ed;
+  --color-veining: #8c8270;
+  --color-aurum: #d4af7a;
 }
 
 @layer base {
@@ -14,7 +18,8 @@
     @apply bg-paper text-ink font-sans antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Sparkles, Layout, Palette, MessageSquare, Loader2, RefreshCw, Download } from 'lucide-react';
+import { Layout, Palette, MessageSquare, Loader2, RefreshCw, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from './lib/utils';
 import UploadZone from './components/UploadZone';
@@ -59,12 +59,9 @@ export default function App() {
       <header className="sticky top-0 z-50 bg-paper/80 backdrop-blur-xl border-b border-ink/5 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shadow-lg shadow-accent/20">
-              <Sparkles className="w-6 h-6 text-white" />
-            </div>
             <div>
-              <h1 className="text-xl font-serif font-bold tracking-tight leading-none">AuraDesign AI</h1>
-              <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-ink/40 mt-1">Interior Consultant</p>
+              <h1 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300 }} className="text-2xl tracking-tight leading-none">λόγος</h1>
+              <p className="text-[10px] uppercase font-semibold text-ink/40 mt-1" style={{ letterSpacing: '0.2em' }}>AI Interior Consultant</p>
             </div>
           </div>
           
@@ -74,9 +71,10 @@ export default function App() {
             <a href="#" className="text-sm font-medium hover:text-accent transition-colors">Pricing</a>
           </nav>
 
-          <button 
+          <button
             onClick={reset}
-            className="text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full border border-ink/10 hover:bg-ink/5 transition-all"
+            className="text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full border hover:bg-ink/5 transition-all"
+            style={{ borderColor: '#d4af7a', color: '#d4af7a' }}
           >
             New Project
           </button>
@@ -91,12 +89,12 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl mx-auto mb-16 space-y-6"
           >
-            <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight leading-[1.1]">
+            <h1 className="text-5xl md:text-7xl font-serif tracking-tight leading-[1.1]" style={{ fontWeight: 300 }}>
               Reimagine your space <br />
-              <span className="italic text-accent">with AI precision.</span>
+              <span className="italic" style={{ color: '#d4af7a' }}>with ancient wisdom.</span>
             </h1>
             <p className="text-lg text-ink/60 leading-relaxed">
-              Upload a photo of your room and let Aura, our AI interior consultant, transform it into a masterpiece. Explore styles, refine details, and find the perfect pieces for your home.
+              λόγος — where proportion meets possibility. Upload your room and consult χρέομαι, your design oracle.
             </p>
           </motion.div>
         )}
@@ -232,12 +230,11 @@ export default function App() {
       <footer className="border-t border-ink/5 py-12 px-6 bg-white/50">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <Sparkles className="w-5 h-5 text-accent" />
-              <span className="font-serif font-bold text-lg">AuraDesign AI</span>
+            <div className="mb-4">
+              <span style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 300, fontSize: '1.5rem' }}>λόγος</span>
             </div>
             <p className="text-sm text-ink/60 max-w-sm leading-relaxed">
-              Transforming spaces through the lens of artificial intelligence. Our consultant helps you bridge the gap between vision and reality.
+              Where proportion meets possibility. Combining timeless design principles — reason, harmony, balance — with modern AI expertise.
             </p>
           </div>
           <div>
@@ -258,7 +255,7 @@ export default function App() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-ink/5 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-ink/40">© 2026 AuraDesign AI. All rights reserved.</p>
+          <p className="text-xs text-ink/40">© 2026 λόγος. All rights reserved.</p>
           <div className="flex gap-6">
             <a href="#" className="text-ink/40 hover:text-accent transition-colors"><RefreshCw className="w-4 h-4" /></a>
             <a href="#" className="text-ink/40 hover:text-accent transition-colors"><Layout className="w-4 h-4" /></a>

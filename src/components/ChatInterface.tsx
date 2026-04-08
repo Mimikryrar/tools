@@ -12,7 +12,7 @@ interface Message {
 
 const INITIAL_MESSAGE: Message = {
   role: 'model',
-  content: "Hello! I'm Aura, your AI interior design consultant. How can I help you refine your space today?"
+  content: "I am χρέομαι, your design oracle. Upload a room and I shall reveal its potential."
 };
 
 interface ChatInterfaceProps {
@@ -126,7 +126,7 @@ export default function ChatInterface({ roomImage, resetTrigger, className }: Ch
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask for refinements or shoppable links..."
+            placeholder="Consult the oracle..."
             className="w-full pl-4 pr-12 py-3 bg-white border border-ink/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all text-sm"
           />
           <button
