@@ -136,7 +136,7 @@ export default function App() {
                           <div className="flex justify-end">
                             <a
                               href={reimaginedImage}
-                              download="aura-reimagined.png"
+                              download="logos-reimagined.png"
                               className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors"
                             >
                               <Download className="w-3.5 h-3.5" />

@@ -69,7 +69,7 @@ export default function ChatInterface({ roomImage, resetTrigger, className }: Ch
   return (
     <div className={cn("flex flex-col h-[500px] bg-white rounded-2xl border border-ink/10 shadow-sm overflow-hidden", className)}>
       {/* Header */}
-      <div className="px-6 py-4 border-bottom border-ink/10 bg-paper/50 flex items-center gap-2">
+      <div className="px-6 py-4 border-b border-ink/10 bg-paper/50 flex items-center gap-2">
         <Sparkles className="w-4 h-4 text-accent" />
         <h3 className="font-serif font-semibold text-lg tracking-tight">χρέομαι</h3>
       </div>
@@ -112,7 +112,7 @@ export default function ChatInterface({ roomImage, resetTrigger, className }: Ch
               <Loader2 className="w-4 h-4 animate-spin" />
             </div>
             <div className="px-4 py-3 rounded-2xl bg-ink/5 text-ink rounded-tl-none text-sm italic">
-              Aura is thinking...
+              χρέομαι is thinking...
             </div>
           </div>
         )}

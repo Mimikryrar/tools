@@ -1,6 +1,9 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || "" });
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
+const API_KEY_ERROR = "VITE_GEMINI_API_KEY is not set. Please add it to your .env.local file.";
+
+const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 export interface DesignStyle {
   id: string;
@@ -43,9 +46,10 @@ export const DESIGN_STYLES: DesignStyle[] = [
 ];
 
 export async function generateReimaginedImage(base64Image: string, stylePrompt: string, mimeType = 'image/jpeg'): Promise<string> {
+  if (!API_KEY) throw new Error(API_KEY_ERROR);
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-image',
+      model: 'gemini-2.0-flash-preview-image-generation',
       contents: {
         parts: [
           {
@@ -78,6 +82,7 @@ export async function chatWithDesigner(
   history: { role: 'user' | 'model'; parts: { text: string }[] }[],
   roomImage?: string
 ) {
+  if (!API_KEY) throw new Error(API_KEY_ERROR);
   const chat = ai.chats.create({
     model: 'gemini-2.0-flash',
     config: {
