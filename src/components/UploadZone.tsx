@@ -73,6 +73,7 @@ export default function UploadZone({ value, onUpload, className }: UploadZonePro
               id="file-upload-drop"
               type="file"
               accept="image/*"
+              aria-label="Upload room photo"
               className="hidden"
               onChange={onFileChange}
             />

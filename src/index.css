@@ -7,10 +7,10 @@
   --color-paper: #f5f2ed;
   --color-ink: #1a1a1a;
   --color-accent: #d4af7a;
-  --color-noir: #1a1a1a;
-  --color-marbre: #f5f2ed;
+  --color-noir: #1a1a1a;    /* = --color-ink */
+  --color-marbre: #f5f2ed;  /* = --color-paper */
   --color-veining: #8c8270;
-  --color-aurum: #d4af7a;
+  /* --color-aurum = --color-accent (#d4af7a) */
 }
 
 @layer base {

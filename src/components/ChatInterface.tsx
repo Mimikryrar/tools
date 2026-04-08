@@ -60,7 +60,7 @@ export default function ChatInterface({ roomImage, resetTrigger, className }: Ch
       setMessages(prev => [...prev, { role: 'model', content: response || "I'm sorry, I couldn't generate a response." }]);
     } catch (error) {
       console.error('Chat error:', error);
-      setMessages(prev => [...prev, { role: 'model', content: "I encountered an error. Please try again." }]);
+      setMessages(prev => [...prev, { role: 'model', content: "The oracle is silent. A disturbance occurred — please try again." }]);
     } finally {
       setIsLoading(false);
     }
@@ -134,7 +134,7 @@ export default function ChatInterface({ roomImage, resetTrigger, className }: Ch
             disabled={!input.trim() || isLoading}
             className="absolute right-2 p-2 text-accent hover:bg-accent/10 rounded-lg transition-colors disabled:opacity-30 disabled:hover:bg-transparent"
           >
-            <Send className="w-5 h-5" />
+            <Send className="w-5 h-5" aria-label="Send message" />
           </button>
         </div>
       </form>

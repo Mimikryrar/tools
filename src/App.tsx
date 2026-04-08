@@ -89,7 +89,7 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl mx-auto mb-16 space-y-6"
           >
-            <h1 className="text-5xl md:text-7xl font-serif tracking-tight leading-[1.1]" style={{ fontWeight: 300 }}>
+            <h1 className="text-5xl md:text-7xl font-serif tracking-tight leading-[1.1]">
               Reimagine your space <br />
               <span className="italic" style={{ color: '#d4af7a' }}>with ancient wisdom.</span>
             </h1>
@@ -137,6 +137,7 @@ export default function App() {
                             <a
                               href={reimaginedImage}
                               download="logos-reimagined.png"
+                              aria-label="Download reimagined room"
                               className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full bg-accent text-white hover:bg-accent/90 transition-colors"
                             >
                               <Download className="w-3.5 h-3.5" />
@@ -256,10 +257,12 @@ export default function App() {
         </div>
         <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-ink/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-ink/40">© 2026 λόγος. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="text-ink/40 hover:text-accent transition-colors"><RefreshCw className="w-4 h-4" /></a>
-            <a href="#" className="text-ink/40 hover:text-accent transition-colors"><Layout className="w-4 h-4" /></a>
-            <a href="#" className="text-ink/40 hover:text-accent transition-colors"><MessageSquare className="w-4 h-4" /></a>
+          <div className="flex gap-6 text-sm opacity-30 select-none">
+            <span>α</span>
+            <span>·</span>
+            <span>β</span>
+            <span>·</span>
+            <span>γ</span>
           </div>
         </div>
       </footer>
