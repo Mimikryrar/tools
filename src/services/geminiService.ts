@@ -66,6 +66,26 @@ export async function generateReimaginedImage(base64Image: string, stylePrompt: 
   return `data:image/png;base64,${imageData}`;
 }
 
+export async function generateReimaginedImageReplicate(base64Image: string, mimeType = 'image/jpeg', stylePrompt: string, apiKey = ''): Promise<string> {
+  const res = await fetch(`${API_BASE}/api/generate-image-replicate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-replicate-key': apiKey },
+    body: JSON.stringify({
+      base64Image: base64Image.split(',')[1] || base64Image,
+      mimeType,
+      stylePrompt,
+    }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error((err as any).error || `Server error ${res.status}`);
+  }
+
+  const { imageData } = await res.json();
+  return `data:image/png;base64,${imageData}`;
+}
+
 export async function chatWithDesigner(
   message: string,
   history: { role: 'user' | 'model'; parts: { text: string }[] }[],

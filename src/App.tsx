@@ -7,10 +7,14 @@ import ComparisonSlider from './components/ComparisonSlider';
 import StyleCarousel from './components/StyleCarousel';
 import ChatInterface from './components/ChatInterface';
 import ApiKeySetup from './components/ApiKeySetup';
-import { DESIGN_STYLES, DesignStyle, generateReimaginedImage } from './services/geminiService';
+import { DESIGN_STYLES, DesignStyle, generateReimaginedImage, generateReimaginedImageReplicate } from './services/geminiService';
 
 export default function App() {
-  const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('logos-gemini-key') || '');
+  const [provider, setProvider] = useState<string>(() => localStorage.getItem('logos-provider') || 'gemini');
+  const [apiKey, setApiKey] = useState<string>(() => {
+    const p = localStorage.getItem('logos-provider') || 'gemini';
+    return localStorage.getItem(`logos-${p}-key`) || '';
+  });
   const [originalImage, setOriginalImage] = useState<string | null>(null);
   const [imageMimeType, setImageMimeType] = useState('image/jpeg');
   const [uploadCount, setUploadCount] = useState(0);
@@ -33,11 +37,14 @@ export default function App() {
 
   const changeApiKey = () => {
     localStorage.removeItem('logos-gemini-key');
+    localStorage.removeItem('logos-replicate-key');
+    localStorage.removeItem('logos-provider');
     setApiKey('');
+    setProvider('gemini');
   };
 
   if (!apiKey) {
-    return <ApiKeySetup onKeySet={(key) => setApiKey(key)} />;
+    return <ApiKeySetup onKeySet={({ provider: p, key }) => { setProvider(p); setApiKey(key); }} />;
   }
 
   const handleStyleSelect = async (style: DesignStyle) => {
@@ -49,7 +56,9 @@ export default function App() {
     setMobileTab('chat');
 
     try {
-      const result = await generateReimaginedImage(originalImage, style.prompt, imageMimeType, apiKey);
+      const result = provider === 'replicate'
+        ? await generateReimaginedImageReplicate(originalImage, imageMimeType, style.prompt, apiKey)
+        : await generateReimaginedImage(originalImage, style.prompt, imageMimeType, apiKey);
       setReimaginedImage(result);
     } catch (err) {
       console.error('Generation error:', err);
